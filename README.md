@@ -208,9 +208,13 @@ This toolkit was built with the assistance of **Claude (Anthropic)**. Below are 
 **Prompt 1 — Understanding xarray**
 > *"I have pandas experience but no background in climate data. Explain xarray to me: what problem does it solve, what are its core objects, and how does it relate to numpy and pandas?"*
 
+<<<<<<< HEAD
 **Response summary:** The AI framed `DataArray` as a numpy array that remembers what each axis means — like a pandas Series but for N dimensions. It explained xarray was built specifically for NetCDF climate files, the standard format for gridded earth observation data.
 
 **Helpfulness:** ⭐⭐⭐⭐⭐ — The pandas analogy made xarray click immediately and saved a lot of doc-reading time.
+=======
+This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md` document includes a full **AI Prompt Journal** showing which prompts were used, what the AI returned, and how it accelerated learning. See [TOOLKIT.md](https://github.com/EstherWMaina/Xarray-Beginner-Toolkit/blob/main/Toolkit.md).
+>>>>>>> c6df480d5beb50cc7b5eefde1fc47f4a42e1b551
 
 ---
 
@@ -235,6 +239,7 @@ This toolkit was built with the assistance of **Claude (Anthropic)**. Below are 
 **Prompt 4 — Debugging the anomaly dimension mismatch**
 > *"I'm getting `ValueError: dimensions ('month',) must have the same length as data` when subtracting a monthly climatology. What's wrong and how do I fix it?"*
 
+<<<<<<< HEAD
 **Response summary:** The AI identified the mismatch — a `(month,)` climatology cannot be subtracted from a `(time, lat, lon)` array directly. The fix is `da.groupby("time.month") - climatology`, which aligns dimensions automatically before subtracting.
 
 **Helpfulness:** ⭐⭐⭐⭐⭐ — One-line fix that would have taken much longer to debug without help.
@@ -370,3 +375,6 @@ xarray-toolkit/
 ---
 
 *MIT License — free to use and adapt for learning.*
+=======
+MIT License — free to use and adapt for learning.
+>>>>>>> c6df480d5beb50cc7b5eefde1fc47f4a42e1b551

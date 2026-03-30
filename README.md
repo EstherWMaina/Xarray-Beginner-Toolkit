@@ -23,12 +23,12 @@
 **Getting Started with xarray in Python – Satellite Time Series for Rainfall & NDVI**
 
 ### What technology did I choose?
-**`xarray`** — an open-source Python library for working with labeled, multi-dimensional arrays. It is the standard tool in climate science, remote sensing, and earth observation data analysis.
+**`xarray`** is an open-source Python library for working with labeled, multi-dimensional arrays. It is the standard tool in climate science, remote sensing, and earth observation data analysis.
 
 ### Why did I choose it?
-Climate and satellite datasets are inherently multi-dimensional: they have a time axis, latitude, longitude, and sometimes additional axes like altitude or spectral band. Plain `numpy` arrays lose track of what each dimension means, and `pandas` DataFrames are built for 2D tabular data. `xarray` fills exactly this gap — it brings the labeling power of `pandas` to N-dimensional arrays.
+Climate and satellite datasets are inherently multi-dimensional: they have a time axis, latitude, longitude, and sometimes additional axes like altitude or spectral band. Plain `numpy` arrays lose track of what each dimension means, and `pandas` DataFrames are built for 2D tabular data. `xarray` fills exactly this gap, it brings the labeling power of `pandas` to N-dimensional arrays.
 
-East Africa is a region where rainfall variability has direct food security consequences. Tools like `xarray` are used daily by meteorologists, remote sensing analysts, and climate scientists working on exactly these problems — making it a practical and meaningful choice.
+East Africa is a region where rainfall variability has direct food security consequences. Tools like `xarray` are used daily by meteorologists, remote sensing analysts, and climate scientists working on exactly these problems, making it a practical and meaningful choice.
 
 ### What's the end goal?
 By the end of this guide you will be able to:
@@ -208,13 +208,12 @@ This toolkit was built with the assistance of **Claude (Anthropic)**. Below are 
 **Prompt 1 — Understanding xarray**
 > *"I have pandas experience but no background in climate data. Explain xarray to me: what problem does it solve, what are its core objects, and how does it relate to numpy and pandas?"*
 
-<<<<<<< HEAD
 **Response summary:** The AI framed `DataArray` as a numpy array that remembers what each axis means — like a pandas Series but for N dimensions. It explained xarray was built specifically for NetCDF climate files, the standard format for gridded earth observation data.
 
-**Helpfulness:** ⭐⭐⭐⭐⭐ — The pandas analogy made xarray click immediately and saved a lot of doc-reading time.
+**Helpfulness:**  The pandas analogy made xarray click immediately and saved a lot of doc-reading time.
 =======
 This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md` document includes a full **AI Prompt Journal** showing which prompts were used, what the AI returned, and how it accelerated learning. See [TOOLKIT.md](https://github.com/EstherWMaina/Xarray-Beginner-Toolkit/blob/main/Toolkit.md).
->>>>>>> c6df480d5beb50cc7b5eefde1fc47f4a42e1b551
+
 
 ---
 
@@ -223,7 +222,7 @@ This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md
 
 **Response summary:** The AI used `np.exp` Gaussian peaks to model the two rainy seasons and included a spatial gradient for orographic effects. It also added `attrs` with units — a best practice I would have skipped initially.
 
-**Helpfulness:** ⭐⭐⭐⭐⭐ — Output needed minor tuning but saved significant trial-and-error time.
+**Helpfulness:** Output needed minor tuning but saved significant trial-and-error time.
 
 ---
 
@@ -232,7 +231,7 @@ This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md
 
 **Response summary:** Use `.groupby("time.month")` to compute a climatology — averaging all Januaries together across years. Use `.resample(time="MS")` to aggregate within each month while preserving the year (e.g. converting 16-day NDVI composites to monthly averages).
 
-**Helpfulness:** ⭐⭐⭐⭐⭐ — A genuine point of confusion resolved with a clear, concrete distinction.
+**Helpfulness:** A genuine point of confusion resolved with a clear, concrete distinction.
 
 ---
 
@@ -242,7 +241,7 @@ This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md
 <<<<<<< HEAD
 **Response summary:** The AI identified the mismatch — a `(month,)` climatology cannot be subtracted from a `(time, lat, lon)` array directly. The fix is `da.groupby("time.month") - climatology`, which aligns dimensions automatically before subtracting.
 
-**Helpfulness:** ⭐⭐⭐⭐⭐ — One-line fix that would have taken much longer to debug without help.
+**Helpfulness:** One-line fix that would have taken much longer to debug without help.
 
 ---
 
@@ -251,7 +250,7 @@ This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md
 
 **Response summary:** The AI explained that `.sel()` on a single value can retain the time dimension at length 1. Chaining `.squeeze()` drops all length-1 dimensions, giving the expected `(20, 20)` shape for plotting.
 
-**Helpfulness:** ⭐⭐⭐⭐⭐ — This was a real bug encountered during development. Fix: `anomaly.sel(time="2021-04").squeeze()`.
+**Helpfulness:** This was a real bug encountered during development. Fix: `anomaly.sel(time="2021-04").squeeze()`.
 
 ---
 
@@ -377,4 +376,4 @@ xarray-toolkit/
 *MIT License — free to use and adapt for learning.*
 =======
 MIT License — free to use and adapt for learning.
->>>>>>> c6df480d5beb50cc7b5eefde1fc47f4a42e1b551
+

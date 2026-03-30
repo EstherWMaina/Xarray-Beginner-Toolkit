@@ -83,7 +83,7 @@ def explore_dataset(da):
     print(da)
     print()
     print(f"Shape     : {da.shape}")
-    print(f"Dimensions: {dict(da.dims)}")
+    print(f"Dimensions: {dict(da.sizes)}")   # {'time': 36, 'lat': 20, 'lon': 20}
     print(f"Min value : {float(da.min()):.2f} mm/day")
     print(f"Max value : {float(da.max()):.2f} mm/day")
     print(f"Mean      : {float(da.mean()):.2f} mm/day")
@@ -121,15 +121,21 @@ def compute_seasonal_cycle(da):
 
 def compute_anomalies(da):
     """
-    Rainfall anomaly = actual value minus the climatological mean for that month.
-    This highlights wet/dry years relative to the average.
+    Compute rainfall anomalies by subtracting the monthly climatology
+    from each month's data.
     """
-    climatology = da.groupby("time.month").mean("time")
-    anomaly = da.groupby("time.month") - climatology
-    anomaly.attrs["units"] = "mm/day"
-    anomaly.attrs["long_name"] = "Rainfall Anomaly"
+    # Calculate the climatology (average for each month)
+    climatology = da.groupby('time.month').mean('time')
+    
+    # Calculate anomalies by subtracting the climatology from each month
+    anomaly = da.groupby('time.month') - climatology
+    
+    print("Anomaly statistics:")
+    print(f"  Min anomaly: {float(anomaly.min()):.2f} mm/day")
+    print(f"  Max anomaly: {float(anomaly.max()):.2f} mm/day")
+    print()
+    
     return anomaly
-
 
 # ─────────────────────────────────────────────
 # STEP 5: Visualizations
@@ -171,23 +177,31 @@ def plot_spatial_mean_rainfall(da):
 
 
 def plot_anomaly_map(anomaly):
-    """Plot the rainfall anomaly for April 2021 (peak long rains)."""
-    # Select April 2021
-    april_2021 = anomaly.sel(time="2021-04")
+    """
+    Plot a map of rainfall anomalies for a specific month.
+    Here we'll use April 2021 (during the "long rains" season).
+    """
+    print("Plotting anomaly map...")
+    
+    # Select April 2021 data
+    april_2021 = anomaly.sel(time="2021-04").squeeze()  # Add squeeze() to remove the time dimension
+    
     fig, ax = plt.subplots(figsize=(8, 6))
+    
+    # Use pcolormesh with correct dimensions
+    # The issue was that april_2021 had shape (1, 20, 20) but should be (20, 20)
     im = ax.pcolormesh(
         april_2021.lon, april_2021.lat, april_2021.values,
         cmap="RdBu", vmin=-3, vmax=3, shading="auto"
     )
+    
     cbar = plt.colorbar(im, ax=ax, label="Anomaly (mm/day)")
     ax.set_title("Rainfall Anomaly – April 2021 (Long Rains)", fontsize=13, fontweight="bold")
     ax.set_xlabel("Longitude (°E)")
     ax.set_ylabel("Latitude (°N)")
-    plt.tight_layout()
-    plt.savefig("anomaly_map.png", dpi=150)
-    print("  ✓ Saved: anomaly_map.png")
-    plt.close()
-
+    ax.grid(alpha=0.3)
+    
+    plt.savefig("anomaly_map.png", dpi=150, bbox_inches="tight")
 
 # ─────────────────────────────────────────────
 # MAIN

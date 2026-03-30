@@ -238,7 +238,7 @@ This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md
 **Prompt 4 — Debugging the anomaly dimension mismatch**
 > *"I'm getting `ValueError: dimensions ('month',) must have the same length as data` when subtracting a monthly climatology. What's wrong and how do I fix it?"*
 
-<<<<<<< HEAD
+
 **Response summary:** The AI identified the mismatch — a `(month,)` climatology cannot be subtracted from a `(time, lat, lon)` array directly. The fix is `da.groupby("time.month") - climatology`, which aligns dimensions automatically before subtracting.
 
 **Helpfulness:** One-line fix that would have taken much longer to debug without help.

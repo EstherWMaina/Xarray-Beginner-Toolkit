@@ -74,7 +74,7 @@ jupyter notebook notebooks/
 
 ## 🧠 AI-Assisted Learning
 
-This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md` document includes a full **AI Prompt Journal** showing which prompts were used, what the AI returned, and how it accelerated learning. See [TOOLKIT.md → Section 6](TOOLKIT.md#6-ai-prompt-journal).
+This entire toolkit was scaffolded using **Claude (Anthropic)**. The `TOOLKIT.md` document includes a full **AI Prompt Journal** showing which prompts were used, what the AI returned, and how it accelerated learning. See [TOOLKIT.md](https://github.com/EstherWMaina/Xarray-Beginner-Toolkit/blob/main/Toolkit.md).
 
 ---
 
